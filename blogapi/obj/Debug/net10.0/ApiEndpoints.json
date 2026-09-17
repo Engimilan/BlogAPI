@@ -1,23 +1,28 @@
 [
   {
-    "ContainingType": "blogapi.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "blogapi.Controllers.BloggerController",
+    "Method": "GetAllBlogger",
+    "RelativePath": "bloggers/all",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BloggerController",
+    "Method": "GetBloggerById",
+    "RelativePath": "bloggers/byId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[blogapi.WeatherForecast, blogapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
   }
 ]

@@ -33,3 +33,5 @@ C:\Users\engim\Desktop\back\09.10\blogapi\blogapi\obj\Debug\net10.0\blogapi.pdb
 C:\Users\engim\Desktop\back\09.10\blogapi\blogapi\obj\Debug\net10.0\blogapi.genruntimeconfig.cache
 C:\Users\engim\Desktop\back\09.10\blogapi\blogapi\obj\Debug\net10.0\ref\blogapi.dll
 C:\Users\engim\Desktop\back\09.10\blogapi\blogapi\bin\Debug\net10.0\Scalar.AspNetCore.dll
+C:\Users\engim\Desktop\back\09.10\blogapi\blogapi\obj\Debug\net10.0\blogapi.sourcelink.json
+C:\Users\engim\Desktop\back\09.10\blogapi\blogapi\bin\Debug\net10.0\MySqlConnector.dll
