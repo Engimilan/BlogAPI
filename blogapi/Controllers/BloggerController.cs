@@ -14,7 +14,7 @@ namespace blogapi.Controllers
     {
         public string ConnectionString = "server=localhost;database=blog2;uid=root;password=";
         [HttpGet("all")]
-        public object GetAllBlogger() 
+        public object GetAllBlogger()
         {
 
             List<Blogger> bloggers = new List<Blogger>();
@@ -101,7 +101,7 @@ namespace blogapi.Controllers
 
             connector.Close();
 
-            return new { message="jo", results= addNewBloggerDTO};
+            return new { message = "jo", results = addNewBloggerDTO };
         }
 
         [HttpPost("login")]
@@ -120,19 +120,19 @@ namespace blogapi.Controllers
 
             var datareader = command.ExecuteReader();
 
-            if (datareader.Read()==true)
+            if (datareader.Read() == true)
             {
-                return new {message ="SIKERES BELÉPÉS",  result=datareader.GetInt32("Id") };
+                return new { message = "SIKERES BELÉPÉS", result = datareader.GetInt32("Id") };
             }
             else
             {
-                return new { message="SIKERTELEN BELÉPÉS" , result=loginDTO };
+                return new { message = "SIKERTELEN BELÉPÉS", result = loginDTO };
             }
-         }
+        }
 
         [HttpDelete]
 
-        public object DeleteBlogger([FromBody]int Id)
+        public object DeleteBlogger([FromBody] int Id)
         {
             var connector = new MySqlConnection(ConnectionString);
 
@@ -144,6 +144,30 @@ namespace blogapi.Controllers
             command.Parameters.AddWithValue("@Id", Id);
 
             object result = command.ExecuteNonQuery() > 0 ? new { message = "Sikeres törlés." } : new { message = "Nincs ilyen felhasználó." };
+
+            connector.Close();
+
+            return result;
+        }
+
+        [HttpPut("update")]
+        public object UpateBlogger([FromQuery] int Id, [FromBody] UpdateDTO updatedto)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            string sql = @"UPDATE `blogger2` SET `name`=@name,`email`=@email,`age`=@age,`password`=@password WHERE `id`= @id;";
+
+            var command = new MySqlCommand(sql, connector);
+
+            command.Parameters.AddWithValue("@name", updatedto.Name);
+            command.Parameters.AddWithValue("@email", updatedto.Email);
+            command.Parameters.AddWithValue("@age", updatedto.Age);
+            command.Parameters.AddWithValue("@password", updatedto.Password);
+            command.Parameters.AddWithValue("@id", Id);
+
+            object result = command.ExecuteNonQuery() > 0 ? new { message = "Sikeres frissítés." } : new { message = "Nincs ilyen felhasználó." };
 
             connector.Close();
 

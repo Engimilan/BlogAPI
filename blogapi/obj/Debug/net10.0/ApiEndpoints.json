@@ -72,5 +72,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BloggerController",
+    "Method": "UpateBlogger",
+    "RelativePath": "bloggers/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "updatedto",
+        "Type": "blogapi.models.DTOs.UpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
