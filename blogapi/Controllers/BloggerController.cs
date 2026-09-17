@@ -1,7 +1,10 @@
 ﻿using blogapi.models;
+using blogapi.models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
+using System.Globalization;
+using System.Security.Cryptography;
 
 namespace blogapi.Controllers
 {
@@ -73,11 +76,78 @@ namespace blogapi.Controllers
                 Password = datareader.GetString(4),
                 RegistrationTime = datareader.GetDateTime(5)
             };
-
-
-
             connector.Close();
             return new { message = "jo", result = blogger };
+        }
+
+        [HttpPost("register")]
+        public object AddNewBlogger(AddNewBloggerDTO addNewBloggerDTO)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            string sql = @"INSERT INTO blogger2 (Name, Email, Age, Password, RegistrationTime) VALUES (@name,@email,@age,@password,@registrationTime)";
+
+            var command = new MySqlCommand(sql, connector);
+
+            command.Parameters.AddWithValue("@name", addNewBloggerDTO.Name);
+            command.Parameters.AddWithValue("@email", addNewBloggerDTO.Email);
+            command.Parameters.AddWithValue("@age", addNewBloggerDTO.Age);
+            command.Parameters.AddWithValue("@password", addNewBloggerDTO.Password);
+            command.Parameters.AddWithValue("@registrationTime", DateTime.Now);
+
+            command.ExecuteNonQuery();
+
+            connector.Close();
+
+            return new { message="jo", results= addNewBloggerDTO};
+        }
+
+        [HttpPost("login")]
+        public object LoginBlogger(LoginDTO loginDTO)
+        {
+
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            string sql = @"SELECT `Id` FROM `blogger2` WHERE `Email`= @Email AND `Password`=@password;";
+
+            var command = new MySqlCommand(sql, connector);
+            command.Parameters.AddWithValue("@Email", loginDTO.Email);
+            command.Parameters.AddWithValue("@Password", loginDTO.Password);
+
+            var datareader = command.ExecuteReader();
+
+            if (datareader.Read()==true)
+            {
+                return new {message ="SIKERES BELÉPÉS",  result=datareader.GetInt32("Id") };
+            }
+            else
+            {
+                return new { message="SIKERTELEN BELÉPÉS" , result=loginDTO };
+            }
+         }
+
+        [HttpDelete]
+
+        public object DeleteBlogger([FromBody]int Id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+
+            connector.Open();
+
+            string sql = @"DELETE FROM `blogger2` WHERE `Id`= @Id;";
+
+            var command = new MySqlCommand(sql, connector);
+            command.Parameters.AddWithValue("@Id", Id);
+
+            object result = command.ExecuteNonQuery() > 0 ? new { message = "Sikeres törlés." } : new { message = "Nincs ilyen felhasználó." };
+
+            connector.Close();
+
+            return result;
         }
     }
 }
