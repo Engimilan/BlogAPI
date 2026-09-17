@@ -173,5 +173,49 @@ namespace blogapi.Controllers
 
             return result;
         }
+
+        [HttpGet("Allblogger")]
+
+        public object Countblogger(int Id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+            connector.Open();
+
+            string sql = @"SELECT COUNT(*) FROM `blogger2`;";
+            var command = new MySqlCommand(sql, connector);
+
+            int count = Convert.ToInt32(command.ExecuteScalar());
+
+            connector.Close();
+
+            return new { message = "Sikeres.", count };
+        }
+        [HttpGet("ABC-ord")]
+        public object GetBloggersABC()
+        {
+            List<object> abcblogger = new List<object>();
+
+            var connector = new MySqlConnection(ConnectionString);
+            connector.Open();
+
+            string sql = @"SELECT `Name`, `Email` FROM `blogger2` ORDER BY `Name` ASC;";
+            var command = new MySqlCommand(sql, connector);
+            var datareader = command.ExecuteReader();
+
+            while (datareader.Read())
+            {
+                abcblogger.Add(new
+                {
+                    Name = datareader.GetString(0),
+                    Email = datareader.GetString(1)
+                });
+            }
+
+            connector.Close();
+
+            return new { message = "Sikeres lekérdezés.", bloggers = abcblogger };
+        }
+
+
     }
 }
