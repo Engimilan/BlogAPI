@@ -120,5 +120,112 @@ namespace blogapi.Controllers
 
             return result;
         }
+        [HttpGet("name_email")]
+        public object GetBloggerNameAndEmail(int id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+            connector.Open();
+
+            string sql = @"SELECT `Name`, `Email` FROM `blogger2` WHERE `Id` = @id";
+            var command = new MySqlCommand(sql, connector);
+            command.Parameters.AddWithValue("@id", id);
+
+            var datareader = command.ExecuteReader();
+            object result = null;
+
+            if (datareader.Read())
+            {
+                result = new
+                {
+                    Name = datareader.GetString(0),
+                    Email = datareader.GetString(1)
+                };
+            }
+            else
+            {
+                result = new { message = "Blogger nem található a blog2 táblában." };
+            }
+
+            connector.Close();
+            return result;
+        }
+
+        [HttpGet("posts")]
+        public object GetBloggerPostsWithInnerJoin(int id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+            connector.Open();
+
+            string sql = @"SELECT blogger2.Name, blogpost.Title, blogpost.Content FROM `blogger2` blogger2 INNER JOIN `blogpost` blogpost ON blogger2.Id = blogpost.blogId WHERE blogger2.Id = @id";
+
+            var command = new MySqlCommand(sql, connector);
+            command.Parameters.AddWithValue("@id", id);
+            var reader = command.ExecuteReader();
+
+            string bloggerName = null;
+            var posts = new List<object>();
+
+            while (reader.Read())
+            {
+                if (bloggerName == null)
+                {
+                    bloggerName = reader.GetString(0);
+                }
+
+                posts.Add(new
+                {
+                    Title = reader.GetString(1),
+                    Content = reader.GetString(2)
+                });
+            }
+
+            connector.Close();
+
+            if (bloggerName == null)
+            {
+                return new { message = "A blogger nem található a blog2 táblában, vagy nincsenek bejegyzései." };
+            }
+
+            return new
+            {
+                BloggerName = bloggerName,
+                Posts = posts
+            };
+        }
+
+        [HttpGet("posts_count")]
+        public object GetTotalPostCount()
+        {
+            var connector = new MySqlConnection(ConnectionString);
+            connector.Open();
+
+            string sql = @"SELECT COUNT(*) FROM `blogpost`";
+            var command = new MySqlCommand(sql, connector);
+
+            long count = Convert.ToInt32(command.ExecuteScalar());
+
+            connector.Close();
+
+            return new { totalPosts = count };
+        }
+
+
+        [HttpGet("blogger_count")]
+        public object GetBloggerPostCount(int id)
+        {
+            var connector = new MySqlConnection(ConnectionString);
+            connector.Open();
+
+            string sql = @"SELECT COUNT(*) FROM `blogpost` WHERE `blogId` = @id";
+            var command = new MySqlCommand(sql, connector);
+            command.Parameters.AddWithValue("@id", id);
+
+            long count = Convert.ToInt32(command.ExecuteScalar());
+
+            connector.Close();
+
+            return new { bloggerId = id, postCount = count };
+        }
+
     }
 }
