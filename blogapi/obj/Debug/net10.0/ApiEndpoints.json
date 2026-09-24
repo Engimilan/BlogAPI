@@ -17,12 +17,38 @@
   },
   {
     "ContainingType": "blogapi.Controllers.BloggerController",
+    "Method": "GetBloggersABC",
+    "RelativePath": "bloggers/ABC-ord",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BloggerController",
     "Method": "GetAllBlogger",
     "RelativePath": "bloggers/all",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BloggerController",
+    "Method": "Countblogger",
+    "RelativePath": "bloggers/Allblogger",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -89,6 +115,69 @@
       {
         "Name": "updatedto",
         "Type": "blogapi.models.DTOs.UpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BlogPostController",
+    "Method": "DeleteBlogger",
+    "RelativePath": "blogpost",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BlogPostController",
+    "Method": "AddNewBlogger",
+    "RelativePath": "blogpost/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addnewblogpost",
+        "Type": "blogapi.models.DTOs.AddnewBlogPost",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BlogPostController",
+    "Method": "GetAllBlogger",
+    "RelativePath": "blogpost/read",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BlogPostController",
+    "Method": "UpateBlogger",
+    "RelativePath": "blogpost/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "updateblogpost",
+        "Type": "blogapi.models.DTOs.UpdateBlogpost",
         "IsRequired": true
       }
     ],
