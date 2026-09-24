@@ -76,7 +76,7 @@ namespace blogapi.Controllers
 
 
 
-        [HttpDelete]
+        [HttpDelete("delete")]
 
         public object DeleteBlogger([FromBody] int Id)
         {
@@ -143,7 +143,7 @@ namespace blogapi.Controllers
             }
             else
             {
-                result = new { message = "Blogger nem található a blog2 táblában." };
+                result = new { message = "Blogger nem található." };
             }
 
             connector.Close();
@@ -151,7 +151,7 @@ namespace blogapi.Controllers
         }
 
         [HttpGet("posts")]
-        public object GetBloggerPostsWithInnerJoin(int id)
+        public object GetBloggerPosts(int id)
         {
             var connector = new MySqlConnection(ConnectionString);
             connector.Open();
@@ -183,7 +183,7 @@ namespace blogapi.Controllers
 
             if (bloggerName == null)
             {
-                return new { message = "A blogger nem található a blog2 táblában, vagy nincsenek bejegyzései." };
+                return new { message = "A blogger nem található." };
             }
 
             return new
@@ -211,7 +211,7 @@ namespace blogapi.Controllers
 
 
         [HttpGet("blogger_count")]
-        public object GetBloggerPostCount(int id)
+        public object GetPostCount(int id)
         {
             var connector = new MySqlConnection(ConnectionString);
             connector.Open();

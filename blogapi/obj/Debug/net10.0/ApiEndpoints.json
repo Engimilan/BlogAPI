@@ -122,23 +122,7 @@
   },
   {
     "ContainingType": "blogapi.Controllers.BlogPostController",
-    "Method": "DeleteBlogger",
-    "RelativePath": "blogpost",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "blogapi.Controllers.BlogPostController",
-    "Method": "GetBloggerPostCount",
+    "Method": "GetPostCount",
     "RelativePath": "blogpost/blogger_count",
     "HttpMethod": "GET",
     "IsController": true,
@@ -170,6 +154,22 @@
   },
   {
     "ContainingType": "blogapi.Controllers.BlogPostController",
+    "Method": "DeleteBlogger",
+    "RelativePath": "blogpost/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "blogapi.Controllers.BlogPostController",
     "Method": "GetBloggerNameAndEmail",
     "RelativePath": "blogpost/name_email",
     "HttpMethod": "GET",
@@ -186,7 +186,7 @@
   },
   {
     "ContainingType": "blogapi.Controllers.BlogPostController",
-    "Method": "GetBloggerPostsWithInnerJoin",
+    "Method": "GetBloggerPosts",
     "RelativePath": "blogpost/posts",
     "HttpMethod": "GET",
     "IsController": true,

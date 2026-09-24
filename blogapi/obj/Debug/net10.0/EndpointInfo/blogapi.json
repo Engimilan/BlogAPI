@@ -290,7 +290,7 @@
         }
       }
     },
-    "/blogpost": {
+    "/blogpost/delete": {
       "delete": {
         "tags": [
           "BlogPost"
